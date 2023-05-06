@@ -4,9 +4,11 @@ const GamepadComponent = () => {
   const [gamepad, setGamepad] = useState(null)
   const [buttonPressed, setButtonPressed] = useState(null)
   const [count, setCount] = useState(0)
+  const [array, setArray] = useState([])
 
   const handleResetClick = () => {
     setCount(0)
+    setArray([])
   }
 
   ////////////////////////////////
@@ -77,18 +79,25 @@ const GamepadComponent = () => {
   ///      BUTTON EVENTS       ///
   ////////////////////////////////
 
-  const handleGamepadButtonPress = useCallback((event, setButtonPressed) => {
-    console.log("Gamepad button pressed")
-    const buttonIndex = event.gamepad.buttons.findIndex(
-      (button) => button.pressed
-    )
-    console.log("Button pressed:", buttonIndex)
-    setButtonPressed(buttonIndex)
-  }, [])
+  const handleGamepadButtonPress = useCallback(
+    (event, setButtonPressed) => {
+      console.log("Gamepad button pressed")
+      const buttonIndex = event.gamepad.buttons.findIndex(
+        (button) => button.pressed
+      )
+      console.log("Button pressed:", buttonIndex)
+      setButtonPressed(buttonIndex)
+      if (buttonIndex === 0 || buttonIndex === 3) {
+        setArray((array) => [...array, buttonIndex])
+      }
+    },
+    [array]
+  )
 
   useEffect(() => {
     if (buttonPressed == 9) {
       setCount(0)
+      setArray([])
     } else if (buttonPressed !== null) {
       setCount(count + buttonPressed)
     }
@@ -125,11 +134,15 @@ const GamepadComponent = () => {
       <h3>Bluetooth Connexion</h3>
       {gamepad ? (
         <>
+          <div className="connexion online"></div>
           <p>Gamepad connected: {gamepad.id}</p>
           <p>Gamepad index: {gamepad.index}</p>
         </>
       ) : (
-        <button onClick={() => connectGamepad()}>Connect to gamepad</button>
+        <>
+          <div className="connexion offline"></div>
+          <button onClick={() => connectGamepad()}>Connect to gamepad</button>
+        </>
       )}
       <h3>Inputs</h3>
       <p>
@@ -137,6 +150,7 @@ const GamepadComponent = () => {
         {buttonPressed !== null ? `Button ${buttonPressed} pressed` : "None"}
       </p>
       <p>Count: {count}</p>
+      <p>Array: {array.toString()}</p>
       <button onClick={() => handleResetClick()}>Reset</button>
     </div>
   )
