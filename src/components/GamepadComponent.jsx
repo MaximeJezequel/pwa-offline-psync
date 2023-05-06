@@ -3,11 +3,9 @@ import { useCallback, useEffect, useState } from "react"
 const GamepadComponent = () => {
   const [gamepad, setGamepad] = useState(null)
   const [buttonPressed, setButtonPressed] = useState(null)
-  const [count, setCount] = useState(0)
   const [array, setArray] = useState([])
 
   const handleResetClick = () => {
-    setCount(0)
     setArray([])
   }
 
@@ -79,29 +77,38 @@ const GamepadComponent = () => {
   ///      BUTTON EVENTS       ///
   ////////////////////////////////
 
-  const handleGamepadButtonPress = useCallback(
-    (event, setButtonPressed) => {
-      console.log("Gamepad button pressed")
-      const buttonIndex = event.gamepad.buttons.findIndex(
-        (button) => button.pressed
-      )
-      console.log("Button pressed:", buttonIndex)
-      setButtonPressed(buttonIndex)
-      if (buttonIndex === 0 || buttonIndex === 3) {
-        setArray((array) => [...array, buttonIndex])
-      }
-    },
-    [array]
-  )
+  const updateArray = (newElement) => {
+    setArray((prevArray) => {
+      const newArray = [...prevArray, newElement]
+      return newArray.length < 7 ? newArray : prevArray
+    })
+  }
 
-  useEffect(() => {
-    if (buttonPressed == 9) {
-      setCount(0)
-      setArray([])
-    } else if (buttonPressed !== null) {
-      setCount(count + buttonPressed)
+  const handleGamepadButtonPress = useCallback((event, setButtonPressed) => {
+    // console.log("Gamepad button pressed")
+    const buttonIndex = event.gamepad.buttons.findIndex(
+      (button) => button.pressed
+    )
+    console.log("Button pressed:", buttonIndex)
+    setButtonPressed(buttonIndex)
+
+    switch (buttonIndex) {
+      case -1:
+        break
+      case 0:
+        updateArray(0)
+        break
+      case 3:
+        updateArray(1)
+        break
+      case 2:
+        setArray((array) => [...array].slice(0, array.length - 1))
+        break
+      case 9:
+        setArray([])
+        break
     }
-  }, [buttonPressed])
+  }, [])
 
   // Function monitoring button press events
   const updateGamepad = () => {
@@ -131,27 +138,40 @@ const GamepadComponent = () => {
 
   return (
     <div className="gamepad-container">
-      <h3>Bluetooth Connexion</h3>
-      {gamepad ? (
-        <>
-          <div className="connexion online"></div>
-          <p>Gamepad connected: {gamepad.id}</p>
-          <p>Gamepad index: {gamepad.index}</p>
-        </>
-      ) : (
-        <>
-          <div className="connexion offline"></div>
-          <button onClick={() => connectGamepad()}>Connect to gamepad</button>
-        </>
-      )}
-      <h3>Inputs</h3>
-      <p>
-        Button pressed:{" "}
-        {buttonPressed !== null ? `Button ${buttonPressed} pressed` : "None"}
-      </p>
-      <p>Count: {count}</p>
-      <p>Array: {array.toString()}</p>
-      <button onClick={() => handleResetClick()}>Reset</button>
+      <div className="connexion-status">
+        <h3>
+          Bluetooth Connexion{" "}
+          <span>
+            {" "}
+            {gamepad ? (
+              <div className="connexion online"></div>
+            ) : (
+              <div className="connexion offline"></div>
+            )}
+          </span>
+        </h3>
+        {gamepad ? (
+          <>
+            <p>Gamepad connected: {gamepad.id}</p>
+            <p>Gamepad index: {gamepad.index}</p>
+          </>
+        ) : (
+          <>
+            <button onClick={() => connectGamepad()}>Connect to gamepad</button>
+          </>
+        )}
+      </div>
+
+      <div className="button-events">
+        <h3>Button Events</h3>
+        <p>
+          Last button pressed:{" "}
+          {buttonPressed !== null ? `${buttonPressed}` : "None"}
+        </p>
+        <p>Array: {array.toString()}</p>
+        <p>Count: {array.length}</p>
+        <button onClick={() => handleResetClick()}>Reset</button>
+      </div>
     </div>
   )
 }
