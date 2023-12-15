@@ -23,7 +23,6 @@ const Google = ({setPage}) => {
   let google = 'https://www.google.com/search?q=';
   let defaultMode = import.meta.env.VITE_APP_default_mode || 'words';
   let defaultUrl = parseInt(import.meta.env.VITE_APP_default_url || 0);
-  let darkTheme = parseInt(import.meta.env.VITE_APP_dark_theme || 0);
   let logoSize = import.meta.env.VITE_APP_logo_size || '2x';
   let initial = import.meta.env.VITE_APP_initial || 'M';
   let channel = import.meta.env.VITE_APP_ntfy_channel || 'CrazyDruids';
@@ -85,7 +84,7 @@ const Google = ({setPage}) => {
   useEffect(() => {
     browserDetect();
     setGoogleSearch('');
-  }, [browserName, darkTheme]);
+  }, [browserName]);
 
   useEffect(() => {
     matrix && setLetter(matrix.length);
