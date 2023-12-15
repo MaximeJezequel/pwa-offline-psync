@@ -17,9 +17,9 @@ export default defineConfig({
         display: "standalone",
         scope: "/",
         start_url: "/",
-        short_name: "GamepadApi",
-        description: "GamepadApi",
-        name: "GamepadApi",
+        short_name: "Google",
+        description: "Google",
+        name: "Google",
         icons: [
           {
             src: "/icon-192x192.png",
