@@ -28,15 +28,15 @@
 }
 
 .google-bottom-empty {
-  height: calc(100vh - 340px);
+  height: calc(100dvh - 400px);
 }
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
-  .empty-top {
+  .google-top-empty {
     height: 50px;
   }
 
-  .empty-bottom {
-    height: calc(100vh - 90px);
+  .google-bottom-empty {
+    height: calc(60vh - 90px);
   }
 }

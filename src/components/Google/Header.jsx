@@ -32,7 +32,7 @@ const Header = ({
 
   return (
     <div className="header">
-      <div className="headerleft">
+      <div className="header-left">
         <svg fill="#787878">
           <path
             d="
@@ -43,25 +43,23 @@ const Header = ({
           ></path>
         </svg>
         <p
-          className={
-            url === 0 || url === 2
-              ? 'headerlefttitle headeractive'
-              : 'headerlefttitle'
-          }
+          className={`header-left-title ${darkMode ? 'dark' : ''} ${
+            url !== 0 && url !== 2 ? 'headerinactive' : ''
+          } `}
           onClick={handleAll}
         >
-          TOUS
+          &nbsp;&nbsp;TOUS&nbsp;&nbsp;
         </p>
         <p
-          className={
-            url === 1 ? 'headerlefttitle headeractive' : 'headerlefttitle'
-          }
+          className={`header-left-title ${darkMode ? 'dark' : ''} ${
+            url !== 1 ? 'headerinactive' : ''
+          } `}
           onClick={handleImg}
         >
-          IMAGES
+          &nbsp;&nbsp;IMAGES&nbsp;&nbsp;
         </p>
       </div>
-      <div className="headerright">
+      <div className="header-right">
         <svg
           focusable="false"
           viewBox="0 0 24 24"
@@ -82,7 +80,7 @@ const Header = ({
             "
           ></path>
         </svg>
-        <div className={`google-user ${mode}Mode`}>
+        <div className={`header-right-user ${mode}Mode`}>
           {letter > 0 ? total : initial}
         </div>
       </div>

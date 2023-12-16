@@ -12,28 +12,22 @@ const Footer = ({ darkMode, toggleDarkMode, handleFR, setPage }) => {
       onClick={(event) => event.stopPropagation()}
     >
       <div
-        className={darkMode ? 'footer-row black darkbottom' : 'footer-row'}
+        className={darkMode ? 'footer-row darkbottom' : 'footer-row'}
         onClick={() => handleFR()}
       >
         France
       </div>
-      <div className={darkMode ? 'footer-3col black' : 'footer-3col'}>
-        {/* <div className="footer-col">Dark theme: off</div> */}
-        <div
-          className={darkMode ? 'footer-col black' : 'footer-col'}
-          onClick={() => darkLightSwitch()}
-        >
+      <div className="footer-3col">
+        {/* <div className="footer-col">{`Thème sombre : ${
+          darkMode ? 'activé' : 'désactivé'
+        }`}</div> */}
+        <div className="footer-col" onClick={() => darkLightSwitch()}>
           Paramètres
         </div>
-        <div
-          className={darkMode ? 'footer-col black' : 'footer-col'}
-          onClick={() => setPage()}
-        >
+        <div className="footer-col" onClick={() => setPage()}>
           Confidentialité
         </div>
-        <div className={darkMode ? 'footer-col black' : 'footer-col'}>
-          Conditions
-        </div>
+        <div className="footer-col">Conditions</div>
       </div>
     </div>
   );

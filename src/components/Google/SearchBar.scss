@@ -17,6 +17,17 @@
   margin: 20px 40px;
   border-radius: 50px;
   border: 1px solid #d1d1d1;
+
+  span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg{
+      height: 24px;
+      width: 24px;
+    }
+  }
 }
 
 .greyborder {
@@ -36,9 +47,11 @@
   top: 10px;
   font-size: 18px;
 }
+
 .micro {
   margin-right: 20px;
 }
+
 .lens {
   margin-right: 10px;
 }
@@ -54,4 +67,10 @@
 }
 .form input:focus {
   outline: none;
+}
+
+@media screen and (min-width: 1024px) {
+	.form {
+		width: 40%;
+	}
 }

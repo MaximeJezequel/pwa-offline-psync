@@ -5,67 +5,89 @@
   margin: 0px 10px;
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: bolder;
-}
-.headerleft,
-.headerright {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.headerlefttitle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: #787878;
-  height: 34px;
-  font-size: 9pt;
-  margin-right: 25px;
-}
-.headeractive {
-  color: #4285f4;
-  margin-top: 15px;
-  border-bottom: 2px solid #4285f4;
-}
-.headerleft svg {
-  width: 24px;
-  height: 24px;
-  margin-right: 25px;
-}
-.header path {
-  width: 24px;
-  height: 24px;
-  margin-right: 0px;
-  padding: 0px;
-}
 
-.headerright svg {
-  width: 24px;
-  height: 24px;
-  margin-right: 20px;
-  cursor: pointer;
-}
-.google-user {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  color: white;
-  font-weight: lighter;
-}
-.google-user:hover {
-  cursor: pointer;
-}
+  .header path {
+    width: 24px;
+    height: 24px;
+    margin-right: 0px;
+    padding: 0px;
+  }
 
-.wordsMode {
-  background-color: #8d6e63;
-}
-.cardsMode {
-  background-color: #9f3eb2;
-}
-.franceMode {
-  background-color: #c2175b;
+  .header-left,
+  .header-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  .header-left {
+    svg {
+      margin-right: 18px;
+    }
+
+    .header-left-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4285f4;
+      height: 34px;
+      font-size: 9pt;
+      margin: 12px 12px 12px 0;
+      border-bottom: 2px solid #4285f4;
+      cursor: pointer;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      user-select: none;
+    }
+
+    .dark {
+      color: #8ab4f8;
+      border-bottom: 2px solid #8ab4f8;
+    }
+
+    .headerinactive {
+      color: #787878;
+      border-bottom: 2px solid transparent;
+    }
+  }
+
+  .header-right {
+    svg {
+      margin-right: 20px;
+    }
+
+    .header-right-user {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      color: white;
+      font-weight: lighter;
+      cursor: pointer;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      user-select: none;
+    }
+
+    .wordsMode {
+      background-color: #8d6e63;
+    }
+
+    .cardsMode {
+      background-color: #9f3eb2;
+    }
+
+    .franceMode {
+      background-color: #c2175b;
+    }
+  }
 }

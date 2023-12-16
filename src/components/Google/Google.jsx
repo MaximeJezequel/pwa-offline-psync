@@ -17,7 +17,7 @@ import france from '../../assets/france';
 
 import './Google.scss';
 
-const Google = ({setPage}) => {
+const Google = ({ setPage }) => {
   // initial
   let motamo;
   let google = 'https://www.google.com/search?q=';
@@ -92,7 +92,6 @@ const Google = ({setPage}) => {
   }, [matrix]);
 
   const goToRealGoogle = () => {
-
     window.location.href =
       url === 0 || url === 2
         ? `https://www.google.com/search?q=${googleSearch}`
@@ -107,7 +106,7 @@ const Google = ({setPage}) => {
       console.error('Error during POST request:', error.message);
     }
   };
-  
+
   const goToRealGoogleAndIntercept = async () => {
     await postData();
     // The navigation logic will be executed regardless of the success or failure of the POST request
@@ -119,7 +118,9 @@ const Google = ({setPage}) => {
 
   const handleChange = (e) => setGoogleSearch(e.target.value);
   const handleEnter = (e) => {
-    e.target.value.length > 0 && e.keyCode === 13 && goToRealGoogleAndIntercept();
+    e.target.value.length > 0 &&
+      e.keyCode === 13 &&
+      goToRealGoogleAndIntercept();
   };
   const handleYes = () => {
     if (letter < count) {

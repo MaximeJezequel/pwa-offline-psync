@@ -2,21 +2,27 @@
   display: flex;
   justify-content: center;
   margin-top: 40px;
-}
-.buttons button {
-  padding: 10px 20px;
-  background-color: #f7f8fa;
-  border: none;
-  border-radius: 5px;
-  margin: 0 10px;
-  cursor: pointer;
-  color: #4d4d4d;
-  outline: none;
-  justify-content: center;
+
+  button {
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #4d4d4d;
+    justify-content: center;
+
+    &:hover {
+      border: 1px solid #5f6368;
+    }
+  }
 }
 
 @media screen and (max-width: 360px) {
-  .buttons button {
-    padding: 10px;
+  .buttons {
+    button {
+      padding: 10px;
+    }
   }
 }
