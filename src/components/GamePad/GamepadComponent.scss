@@ -1,5 +1,5 @@
 .gamepad-container {
-  padding: 2rem;
+  padding: 0 2rem;
   width: calc(100vw - 4rem);
   height: calc(100vh - 4rem);
   display: flex;
@@ -11,7 +11,7 @@
 
 .connexion-status {
   background-color: grey;
-  padding: 2rem;
+  padding: 0 2rem;
   width: 100%;
 
   h3 {
@@ -27,7 +27,7 @@
 
 .button-events {
   background-color: darkmagenta;
-  padding: 2rem;
+  padding: 0 2rem;
   width: 100%;
 }
 

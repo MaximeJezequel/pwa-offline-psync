@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   position: relative;
+  width: 100%
 }
 
 .dark {
@@ -28,7 +29,7 @@
 }
 
 .google-bottom-empty {
-  height: calc(100dvh - 400px);
+  height: calc(100vh - 257px);
 }
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
@@ -37,6 +38,6 @@
   }
 
   .google-bottom-empty {
-    height: calc(60vh - 90px);
+    height: calc(60vh - 40px);
   }
 }

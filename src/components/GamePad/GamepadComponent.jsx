@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import './GamepadComponent.scss';
 
-const GamepadComponent = () => {
+const GamepadComponent = ({ googleSearch }) => {
   const [gamepad, setGamepad] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(null);
   const [array, setArray] = useState([]);
@@ -61,6 +61,7 @@ const GamepadComponent = () => {
   }
 
   useEffect(() => {
+    !gamepad && connectGamepad();
     window.addEventListener('gamepadconnected', handleGamepadConnected);
     window.addEventListener('gamepaddisconnected', handleGamepadDisconnected);
     requestAnimationFrame(updateGamepad);
@@ -80,7 +81,10 @@ const GamepadComponent = () => {
 
   const updateArray = (newElement) => {
     setArray((prevArray) => {
-      const newArray = [...prevArray, newElement];
+      const newArray = [
+        ...prevArray,
+        newElement * 2 ** (6 - 1 - prevArray.length)
+      ];
       return newArray.length < 7 ? newArray : prevArray;
     });
   };
@@ -99,14 +103,20 @@ const GamepadComponent = () => {
       case 0:
         updateArray(0);
         break;
-      case 3:
+      case 4:
         updateArray(1);
         break;
-      case 2:
+      case 1:
         setArray((array) => [...array].slice(0, array.length - 1));
         break;
-      case 9:
+      case 10:
         setArray([]);
+        break;
+      case 11:
+        setArray([]);
+        break;
+      case 3:
+        googleSearch();
         break;
     }
   }, []);
@@ -170,7 +180,8 @@ const GamepadComponent = () => {
           {buttonPressed !== null ? `${buttonPressed}` : 'None'}
         </p>
         <p>Array: {array.toString()}</p>
-        <p>Count: {array.length}</p>
+        <p>Letter: {array.length}</p>
+        <p>Count: {array.reduce((a, b) => a + b, 0)}</p>
         <button onClick={() => handleResetClick()}>Reset</button>
       </div>
     </div>

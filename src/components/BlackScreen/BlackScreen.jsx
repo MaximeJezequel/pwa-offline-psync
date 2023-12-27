@@ -1,11 +1,16 @@
 import React from 'react';
+import GamepadComponent from '../GamePad/GamepadComponent';
 
 import './BlackScreen.scss';
 
 const BlackScreen = ({ setPage }) => {
+  const handleGoogleClick = () => {
+    setPage()
+  }
   return (
     <div className="night">
-      <div onClick={() => setPage()}>toggle</div>
+      <div onClick={() => handleGoogleClick()}>toggle</div>
+      <GamepadComponent googleSearch = {handleGoogleClick}/>
     </div>
   );
 };

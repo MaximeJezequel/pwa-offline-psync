@@ -11,7 +11,8 @@ const Header = ({
   setCount,
   total,
   setMaxTotal,
-  initial,
+  user,
+  setUser,
   mode,
   setMode
 }) => {
@@ -28,6 +29,10 @@ const Header = ({
     setMode('cards');
     setCount(6);
     setMaxTotal(61);
+  };
+
+  const changeUser = (e) => {
+    setUser(e.target.value.toUpperCase())
   };
 
   return (
@@ -81,7 +86,8 @@ const Header = ({
           ></path>
         </svg>
         <div className={`header-right-user ${mode}Mode`}>
-          {letter > 0 ? total : initial}
+          {/* {letter > 0 ? <span>{total}</span> : <input type='text' maxLength="1" className="user"  value={user} onChange={(e) => changeUser(e)} />} */}
+          {letter > 0 ? <span>{total}</span> : <span>{user}</span>}
         </div>
       </div>
     </div>

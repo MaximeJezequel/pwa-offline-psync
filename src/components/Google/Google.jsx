@@ -37,6 +37,7 @@ const Google = ({ setPage }) => {
   const [url, setUrl] = useState(defaultUrl);
   const [browserName, setBrowserName] = useState('');
   const [matrix, setMatrix] = useState([]);
+  const [user, setUser] = useState(initial);
 
   const browserDetect = () => {
     if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
@@ -176,7 +177,8 @@ const Google = ({ setPage }) => {
         setCount={setCount}
         total={total}
         setMaxTotal={setMaxTotal}
-        initial={initial}
+        user={user}
+        setUser={setUser}
         handleReturn={handleReturn}
       />
       <div className="google-top-empty" onClick={handleReturn}></div>
