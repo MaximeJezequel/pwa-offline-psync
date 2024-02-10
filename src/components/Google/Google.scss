@@ -29,12 +29,18 @@
 }
 
 .google-bottom-empty {
-  height: calc(100vh - 257px);
+  height: calc(100vh - 357px);
+}
+
+@media screen and (max-width: 640px) {
+  .google-bottom-empty {
+    height: calc(100vh - 283px);
+  }
 }
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
   .google-top-empty {
-    height: 50px;
+    height: 147px;
   }
 
   .google-bottom-empty {

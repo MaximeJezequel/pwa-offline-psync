@@ -17,17 +17,16 @@ const Footer = ({ darkMode, toggleDarkMode, handleFR, setPage }) => {
       >
         France
       </div>
-      <div className="footer-3col">
-        {/* <div className="footer-col">{`Thème sombre : ${
-          darkMode ? 'activé' : 'désactivé'
-        }`}</div> */}
-        <div className="footer-col" onClick={() => darkLightSwitch()}>
-          Paramètres
-        </div>
-        <div className="footer-col" onClick={() => setPage()}>
+      <div className="footer-wrapper">
+        <div
+          className="footer-item"
+          onClick={() => darkLightSwitch()}
+        >{`Thème sombre : ${darkMode ? 'activé' : 'désactivé'}`}</div>
+        <div className="footer-item">Paramètres</div>
+        <div className="footer-item" onClick={() => setPage()}>
           Confidentialité
         </div>
-        <div className="footer-col">Conditions</div>
+        <div className="footer-item">Conditions</div>
       </div>
     </div>
   );

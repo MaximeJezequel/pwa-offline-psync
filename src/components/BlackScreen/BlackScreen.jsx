@@ -37,6 +37,7 @@ const BlackScreen = ({ setPage }) => {
       /* IE11 */
       document.msExitFullscreen();
     }
+    window.scrollTo(0, 0);
   };
 
   const handleGoogleClick = () => {
@@ -47,7 +48,7 @@ const BlackScreen = ({ setPage }) => {
       <div className="redbutton" onClick={() => handleGoogleClick()}>
         toggle
       </div>
-      {/* <GamepadComponent googleSearch = {handleGoogleClick}/> */}
+      <GamepadComponent googleSearch = {handleGoogleClick}/>
     </div>
   );
 };
