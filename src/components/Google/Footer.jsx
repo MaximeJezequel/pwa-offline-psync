@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Footer.scss';
 
-const Footer = ({ darkMode, toggleDarkMode, handleFR, setPage }) => {
+const Footer = ({ darkMode, toggleDarkMode, handleFR, setPage, setShowGamepad, gamepad }) => {
   const darkLightSwitch = () => {
     toggleDarkMode(!darkMode);
   };
@@ -26,7 +26,11 @@ const Footer = ({ darkMode, toggleDarkMode, handleFR, setPage }) => {
         <div className="footer-item" onClick={() => setPage()}>
           Confidentialité
         </div>
-        <div className="footer-item">Conditions</div>
+        {gamepad ? (
+          <div className="footer-item">Connecté</div>
+        ) : (
+          <div className="footer-item" onClick={() => setShowGamepad(true)}>Conditions</div>
+        )}
       </div>
     </div>
   );

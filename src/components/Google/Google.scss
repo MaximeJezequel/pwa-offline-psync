@@ -38,11 +38,13 @@
   }
 }
 
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .google-top-empty {
     height: 147px;
   }
+}
 
+@media screen and (orientation: landscape) and (max-width: 1024px) {
   .google-bottom-empty {
     height: calc(60vh - 40px);
   }

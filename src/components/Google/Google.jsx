@@ -17,7 +17,7 @@ import france from '../../assets/france';
 
 import './Google.scss';
 
-const Google = ({ setPage }) => {
+const Google = ({ setPage, matrix, setMatrix, setShowGamepad, gamepad }) => {
   // initial
   let motamo;
   let google = 'https://www.google.com/search?q=';
@@ -36,7 +36,6 @@ const Google = ({ setPage }) => {
   const [maxTotal, setMaxTotal] = useState(61);
   const [url, setUrl] = useState(defaultUrl);
   const [browserName, setBrowserName] = useState('');
-  const [matrix, setMatrix] = useState([]);
   const [user, setUser] = useState(initial);
 
   const browserDetect = () => {
@@ -217,6 +216,8 @@ const Google = ({ setPage }) => {
         count={count}
         handleFR={handleFR}
         setPage={setPage}
+        setShowGamepad={setShowGamepad}
+        gamepad={gamepad}
       />
     </div>
   );

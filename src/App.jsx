@@ -7,23 +7,44 @@ import BlackScreen from './components/BlackScreen/BlackScreen';
 import './App.scss';
 
 function App() {
-  const [page, setPage] = useState('Google');
+  const [showGamePad, setShowGamePad] = useState(false);
+  const [showFullBlackScreen, setShowFullBlackScreen] = useState(false);
+  const [matrix, setMatrix] = useState([]);
+  const [gamepad, setGamepad] = useState(null);
 
-  const goToBlackScreenPage = () => {
+  const enterBlackScreenMode = () => {
     console.log('go to black screen');
-    setPage('BlackScreen');
+    setShowFullBlackScreen(true);
+    setShowGamePad(true);
   };
 
-  const goToGooglePage = () => {
+  const exitBlackScreenMode = () => {
     console.log('go to google');
-    setPage('Google');
+    setShowFullBlackScreen(false);
+    setShowGamePad(false);
   };
 
   return (
     <div className="App">
-      {/* <GamepadComponent /> */}
-      {page == 'Google' && <Google setPage={goToBlackScreenPage} />}
-      {page == 'BlackScreen' && <BlackScreen setPage={goToGooglePage} />}
+      {showFullBlackScreen && <BlackScreen setPage={exitBlackScreenMode} />}
+      {
+        <Google
+          setPage={enterBlackScreenMode}
+          matrix={matrix}
+          setMatrix={setMatrix}
+          setShowGamepad={setShowGamePad}
+          gamepad={gamepad}
+        />
+      }
+      {showGamePad && (
+        <GamepadComponent
+          setPage={exitBlackScreenMode}
+          matrix={matrix}
+          setMatrix={setMatrix}
+          gamepad={gamepad}
+          setGamepad={setGamepad}
+        />
+      )}
     </div>
   );
 }

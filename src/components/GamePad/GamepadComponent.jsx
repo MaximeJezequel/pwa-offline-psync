@@ -2,13 +2,17 @@ import { useCallback, useEffect, useState } from 'react';
 
 import './GamepadComponent.scss';
 
-const GamepadComponent = ({ googleSearch }) => {
-  const [gamepad, setGamepad] = useState(null);
+const GamepadComponent = ({
+  setPage,
+  matrix,
+  setMatrix,
+  gamepad,
+  setGamepad
+}) => {
   const [buttonPressed, setButtonPressed] = useState(null);
-  const [array, setArray] = useState([]);
 
   const handleResetClick = () => {
-    setArray([]);
+    setMatrix([]);
   };
 
   ////////////////////////////////
@@ -33,31 +37,29 @@ const GamepadComponent = ({ googleSearch }) => {
       console.error('Web Bluetooth API is not supported in this browser.');
       return;
     }
-
-    try {
-      const device = await navigator.bluetooth.requestDevice({
+    navigator.bluetooth
+      .requestDevice({
         acceptAllDevices: true,
         optionalServices: ['battery_service'],
         filters: [{ services: ['battery_service'] }]
-      });
-      // Connect to the device
-      const gatt = await device.gatt?.connect();
-      // Get the Gamepad service
-      const service = await gatt?.getPrimaryService('abxy_gamepad');
-      // Get the Gamepad characteristic
-      const characteristic =
-        await service?.getCharacteristic('abxy_gamepad_state');
-      // Create a new Gamepad object from the characteristic value
-      const value = await characteristic?.readValue();
-      if (!value) {
-        console.error('Failed to read value from characteristic');
-        return;
-      }
-      // Create a new Gamepad object from the characteristic value
-      setGamepad(new Gamepad());
-    } catch (error) {
-      console.error('Bluetooth connection failed', error);
-    }
+      })
+      .then((device) => {
+        // Connect to the device
+        const gatt = device.gatt?.connect();
+        // Get the Gamepad service
+        const service = gatt?.getPrimaryService('abxy_gamepad');
+        // Get the Gamepad characteristic
+        const characteristic = service?.getCharacteristic('abxy_gamepad_state');
+        // Create a new Gamepad object from the characteristic value
+        const value = characteristic?.readValue();
+        if (!value) {
+          console.error('Failed to read value from characteristic');
+          return;
+        }
+        // Create a new Gamepad object from the characteristic value
+        setGamepad(new Gamepad());
+      })
+      .catch((error) => console.error('Bluetooth connection failed', error));
   }
 
   useEffect(() => {
@@ -79,13 +81,13 @@ const GamepadComponent = ({ googleSearch }) => {
   ///      BUTTON EVENTS       ///
   ////////////////////////////////
 
-  const updateArray = (newElement) => {
-    setArray((prevArray) => {
-      const newArray = [
-        ...prevArray,
-        newElement * 2 ** (6 - 1 - prevArray.length)
+  const updateMatrix = (newElement) => {
+    setMatrix((prevMatrix) => {
+      const newMatrix = [
+        ...prevMatrix,
+        newElement * 2 ** (6 - 1 - prevMatrix.length)
       ];
-      return newArray.length < 7 ? newArray : prevArray;
+      return newMatrix.length < 7 ? newMatrix : prevMatrix;
     });
   };
 
@@ -101,22 +103,22 @@ const GamepadComponent = ({ googleSearch }) => {
       case -1:
         break;
       case 0:
-        updateArray(0);
+        updateMatrix(0);
         break;
       case 4:
-        updateArray(1);
+        updateMatrix(1);
         break;
       case 1:
-        setArray((array) => [...array].slice(0, array.length - 1));
+        setMatrix((matrix) => [...matrix].slice(0, matrix.length - 1));
         break;
       case 10:
-        setArray([]);
+        setMatrix([]);
         break;
       case 11:
-        setArray([]);
+        setMatrix([]);
         break;
       case 3:
-        googleSearch();
+        setPage();
         break;
     }
   }, []);
@@ -179,9 +181,9 @@ const GamepadComponent = ({ googleSearch }) => {
           Last button pressed:{' '}
           {buttonPressed !== null ? `${buttonPressed}` : 'None'}
         </p>
-        <p>Array: {array.toString()}</p>
-        <p>Letter: {array.length}</p>
-        <p>Count: {array.reduce((a, b) => a + b, 0)}</p>
+        <p>Matrix: {matrix.toString()}</p>
+        <p>Letter: {matrix.length}</p>
+        <p>Count: {matrix.reduce((a, b) => a + b, 0)}</p>
         <button onClick={() => handleResetClick()}>Reset</button>
       </div>
     </div>
