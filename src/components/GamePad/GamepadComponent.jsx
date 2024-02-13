@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import GamepadMenu from './GamepadMenu';
+import GamepadMapping from './GamepadMapping';
+
 import './GamepadComponent.scss';
 
 const GamepadComponent = ({
@@ -10,6 +13,8 @@ const GamepadComponent = ({
   setGamepad
 }) => {
   const [buttonPressed, setButtonPressed] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showEvents, setShowEvents] = useState(true);
 
   const handleResetClick = () => {
     setMatrix([]);
@@ -92,12 +97,13 @@ const GamepadComponent = ({
   };
 
   const handleGamepadButtonPress = useCallback((event, setButtonPressed) => {
-    // console.log("Gamepad button pressed")
     const buttonIndex = event.gamepad.buttons.findIndex(
       (button) => button.pressed
     );
-    console.log('Button pressed:', buttonIndex);
-    setButtonPressed(buttonIndex);
+    if (buttonIndex != -1) {
+      console.log('Button pressed:', buttonIndex);
+      setButtonPressed(buttonIndex);
+    }
 
     switch (buttonIndex) {
       case -1:
@@ -133,7 +139,10 @@ const GamepadComponent = ({
           ];
         if (updatedGamepad) {
           updatedGamepad.buttons.forEach((button, index) => {
-            if (button.pressed !== prevGamepad?.buttons[index].pressed) {
+            if (
+              button.pressed !== prevGamepad?.buttons[index].pressed &&
+              button.pressed !== -1
+            ) {
               handleGamepadButtonPress(
                 {
                   gamepad: updatedGamepad
@@ -152,17 +161,15 @@ const GamepadComponent = ({
   return (
     <div className="gamepad-container">
       <div className="connexion-status">
-        <h3>
-          Bluetooth Connexion{' '}
-          <span>
-            {' '}
-            {gamepad ? (
-              <div className="connexion online"></div>
-            ) : (
-              <div className="connexion offline"></div>
-            )}
-          </span>
-        </h3>
+        <span>
+          {' '}
+          {gamepad ? (
+            <div className="connexion online"></div>
+          ) : (
+            <div className="connexion offline"></div>
+          )}
+        </span>
+        <h3>Bluetooth Connexion </h3>
         {gamepad ? (
           <>
             <p>Gamepad connected: {gamepad.id}</p>
@@ -175,15 +182,42 @@ const GamepadComponent = ({
         )}
       </div>
 
-      <div className="button-events">
-        <h3>Button Events</h3>
+      <div className={`button-settings ${showSettings ? '' : 'hidden'}`}>
+        <GamepadMenu
+          showMenu={showSettings}
+          setShowMenu={setShowSettings}
+          title="Button Settings"
+        />
+        <GamepadMapping />
+        <button>SAVE</button>
+      </div>
+
+      <div className={`button-events ${showEvents ? '' : 'hidden'}`}>
+        <GamepadMenu
+          showMenu={showEvents}
+          setShowMenu={setShowEvents}
+          title="Button Events"
+        />
+        <table>
+          <tbody>
+            <tr>
+              <td>List of inputs</td>
+              <td>{matrix.length > 0 ? matrix.toString() : 'empty'}</td>
+            </tr>
+            <tr>
+              <td>Number of inputs</td>
+              <td>{matrix.length}</td>
+            </tr>
+            <tr>
+              <td>Current Count</td>
+              <td>{matrix.reduce((a, b) => a + b, 0)}</td>
+            </tr>
+          </tbody>
+        </table>
         <p>
           Last button pressed:{' '}
           {buttonPressed !== null ? `${buttonPressed}` : 'None'}
         </p>
-        <p>Matrix: {matrix.toString()}</p>
-        <p>Letter: {matrix.length}</p>
-        <p>Count: {matrix.reduce((a, b) => a + b, 0)}</p>
         <button onClick={() => handleResetClick()}>Reset</button>
       </div>
     </div>

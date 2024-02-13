@@ -1,7 +1,7 @@
 .gamepad-container {
   padding: 0 2rem;
   width: calc(100vw - 4rem);
-  height: calc(100vh - 4rem);
+  // height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,9 +10,23 @@
 }
 
 .connexion-status {
-  background-color: grey;
+  background-color: gray;
+  background: #141e30; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   padding: 0 2rem;
   width: 100%;
+  border-top: 1px solid beige;
+  position: relative;
 
   h3 {
     position: relative;
@@ -23,18 +37,86 @@
       right: -10px;
     }
   }
+
+  .connexion {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+  }
+}
+
+.button-settings {
+  background: #42275a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #734b6d,
+    #42275a
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #734b6d,
+    #42275a
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 0 2rem;
+  width: 100%;
+  border-top: 1px solid beige;
+  position: relative;
+
+  .activeButton {
+    filter: drop-shadow(0 0 0.75rem beige);
+    stroke: white;
+  }
+}
+
+.hidden {
+  height: 60px;
+  overflow: hidden;
+}
+
+.arrowlogo {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #8d949b;
+  padding: 10px 10px;
 }
 
 .button-events {
-  background-color: darkmagenta;
+  background: #c04848; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #480048,
+    #c04848
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #480048,
+    #c04848
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   padding: 0 2rem;
   width: 100%;
-}
+  border-top: 1px solid beige;
+  position: relative;
 
-.connexion {
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
+  table,
+  th,
+  td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+
+  tr :nth-child(2) {
+    min-width: 100px;
+  }
+
+  td,
+  tr {
+    padding: 5px 10px;
+  }
 }
 
 .online {
